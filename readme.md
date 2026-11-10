@@ -124,3 +124,5 @@ docker-compose exec app npm run migrate
 ```
 
 SQL-based migrations are stored in `/migrations`.
+
+## Jenkins support
