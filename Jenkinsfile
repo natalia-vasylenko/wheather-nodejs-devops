@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -18,7 +19,8 @@ pipeline {
                     test -f docker-compose.yml
                 '''
             }
-        },
+        }
+
         stage('Test SSH Connection') {
             steps {
                 withCredentials([
@@ -35,8 +37,9 @@ pipeline {
                             "$SSH_USER@13.50.244.236" \
                             "echo 'SSH connection successful!' && whoami && hostname"
                     '''
+                }
+            }
         }
     }
 }
-    }
-}
+
