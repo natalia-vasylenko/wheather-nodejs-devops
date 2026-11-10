@@ -40,6 +40,32 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to EC2') {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: 'weather-nodejs-ec2-ssh',
+                        keyFileVariable: 'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    )
+                ]) {
+                    sh '''
+                        ssh -i "$SSH_KEY" \
+                            -o BatchMode=yes \
+                            -o StrictHostKeyChecking=yes \
+                            "$SSH_USER@13.50.244.236" \
+                            'set -e
+                             cd ~/wheather-nodejs-devops
+                             git fetch origin main
+                             git checkout main
+                             git pull --ff-only origin main
+                             docker compose up -d --build
+                             docker compose ps'
+                    '''
+                }
+            }
+        }
     }
 }
 
