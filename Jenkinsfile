@@ -57,9 +57,9 @@ pipeline {
                             "$SSH_USER@13.50.244.236" \
                             'set -e
                              cd ~/wheather-nodejs-devops
-                             git fetch origin main
-                             git checkout main
-                             git pull --ff-only origin main
+                             git fetch origin master
+                             git checkout master
+                             git pull --ff-only origin master
                              docker compose up -d --build
                              docker compose ps'
                     '''
